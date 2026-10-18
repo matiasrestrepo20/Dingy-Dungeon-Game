@@ -6,7 +6,7 @@ public class Coin : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("¡Moneda recogida!");
+            GameManager.Instance.SumarMoneda();
             Destroy(gameObject);
         }
     }
