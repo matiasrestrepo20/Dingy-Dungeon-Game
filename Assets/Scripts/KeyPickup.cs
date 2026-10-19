@@ -6,7 +6,19 @@ public class KeyPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("¡Ganaste!");
+            PlayerController jugador = other.GetComponent<PlayerController>();
+            if (jugador != null)
+            {
+                jugador.enabled = false;
+            }
+
+            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+
+            GameManager.Instance.Victoria();
             Destroy(gameObject);
         }
     }

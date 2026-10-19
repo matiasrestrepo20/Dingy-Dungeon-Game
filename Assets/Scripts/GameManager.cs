@@ -9,11 +9,12 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI textoPociones;
     public TextMeshProUGUI textoPuntos;
     public TextMeshProUGUI textoGameOver;
+    public TextMeshProUGUI textoVictoria;
 
     private int monedas = 0;
     private int pociones = 0;
     private int puntos = 0;
-    private bool muerto = false;
+    private bool juegoTerminado = false;
 
     void Awake()
     {
@@ -23,12 +24,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         textoGameOver.gameObject.SetActive(false);
+        textoVictoria.gameObject.SetActive(false);
         ActualizarTextos();
     }
 
     void Update()
     {
-        if (muerto && Input.GetKeyDown(KeyCode.R))
+        if (juegoTerminado && Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
@@ -50,8 +52,14 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        muerto = true;
+        juegoTerminado = true;
         textoGameOver.gameObject.SetActive(true);
+    }
+
+    public void Victoria()
+    {
+        juegoTerminado = true;
+        textoVictoria.gameObject.SetActive(true);
     }
 
     void ActualizarTextos()
