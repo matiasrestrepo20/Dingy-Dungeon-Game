@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -7,10 +8,12 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI textoMonedas;
     public TextMeshProUGUI textoPociones;
     public TextMeshProUGUI textoPuntos;
+    public TextMeshProUGUI textoGameOver;
 
     private int monedas = 0;
     private int pociones = 0;
     private int puntos = 0;
+    private bool muerto = false;
 
     void Awake()
     {
@@ -19,7 +22,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        textoGameOver.gameObject.SetActive(false);
         ActualizarTextos();
+    }
+
+    void Update()
+    {
+        if (muerto && Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void SumarMoneda()
@@ -34,6 +46,12 @@ public class GameManager : MonoBehaviour
         pociones++;
         puntos += 25;
         ActualizarTextos();
+    }
+
+    public void GameOver()
+    {
+        muerto = true;
+        textoGameOver.gameObject.SetActive(true);
     }
 
     void ActualizarTextos()
