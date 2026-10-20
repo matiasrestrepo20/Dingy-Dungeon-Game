@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private int monedas = 0;
     private int pociones = 0;
     private int puntos = 0;
+    private int totalMonedas = 0;
+    private int totalPociones = 0;
     private bool juegoTerminado = false;
 
     void Awake()
@@ -23,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        totalMonedas = FindObjectsByType<Coin>(FindObjectsSortMode.None).Length;
+        totalPociones = FindObjectsByType<Potion>(FindObjectsSortMode.None).Length;
+
         textoGameOver.gameObject.SetActive(false);
         textoVictoria.gameObject.SetActive(false);
         ActualizarTextos();
@@ -64,8 +69,8 @@ public class GameManager : MonoBehaviour
 
     void ActualizarTextos()
     {
-        if (textoMonedas != null) textoMonedas.text = "Monedas: " + monedas;
-        if (textoPociones != null) textoPociones.text = "Pociones: " + pociones;
+        if (textoMonedas != null) textoMonedas.text = "Monedas: " + monedas + "/" + totalMonedas;
+        if (textoPociones != null) textoPociones.text = "Pociones: " + pociones + "/" + totalPociones;
         if (textoPuntos != null) textoPuntos.text = "Puntos: " + puntos;
     }
 }
