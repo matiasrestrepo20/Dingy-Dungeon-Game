@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI textoPuntos;
     public TextMeshProUGUI textoGameOver;
     public TextMeshProUGUI textoVictoria;
+    public TextMeshProUGUI textoHistoria;
 
     private int monedas = 0;
     private int pociones = 0;
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour
     private int totalMonedas = 0;
     private int totalPociones = 0;
     private bool juegoTerminado = false;
+    private bool juegoIniciado = false;
+
+    private static bool historiaMostrada = false;
 
     void Awake()
     {
@@ -31,10 +35,34 @@ public class GameManager : MonoBehaviour
         textoGameOver.gameObject.SetActive(false);
         textoVictoria.gameObject.SetActive(false);
         ActualizarTextos();
+
+        if (historiaMostrada)
+        {
+            juegoIniciado = true;
+            textoHistoria.gameObject.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            textoHistoria.gameObject.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 
     void Update()
     {
+        if (!juegoIniciado)
+        {
+            if (Input.anyKeyDown)
+            {
+                juegoIniciado = true;
+                historiaMostrada = true;
+                textoHistoria.gameObject.SetActive(false);
+                Time.timeScale = 1f;
+            }
+            return;
+        }
+
         if (juegoTerminado && Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
