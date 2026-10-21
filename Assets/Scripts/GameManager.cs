@@ -83,6 +83,11 @@ public class GameManager : MonoBehaviour
         ActualizarTextos();
     }
 
+    public bool TieneTodasLasMonedas()
+    {
+        return monedas >= totalMonedas;
+    }
+
     public void GameOver()
     {
         juegoTerminado = true;
