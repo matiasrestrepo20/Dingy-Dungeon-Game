@@ -4,10 +4,12 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public GameObject panelCreditos;
+    public GameObject panelConfiguracion;
 
     void Start()
     {
         panelCreditos.SetActive(false);
+        panelConfiguracion.SetActive(false);
     }
 
     public void Jugar()
@@ -24,6 +26,16 @@ public class MenuManager : MonoBehaviour
     public void CerrarCreditos()
     {
         panelCreditos.SetActive(false);
+    }
+
+    public void AbrirConfiguracion()
+    {
+        panelConfiguracion.SetActive(true);
+    }
+
+    public void CerrarConfiguracion()
+    {
+        panelConfiguracion.SetActive(false);
     }
 
     public void Salir()
