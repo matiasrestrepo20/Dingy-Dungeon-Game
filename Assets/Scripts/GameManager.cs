@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI textoMonedas;
     public TextMeshProUGUI textoPociones;
     public TextMeshProUGUI textoPuntos;
-    public TextMeshProUGUI textoHistoria;
+    public GameObject panelInstrucciones;
     public GameObject panelMuerte;
     public GameObject panelVictoria;
 
@@ -18,9 +18,6 @@ public class GameManager : MonoBehaviour
     private int totalMonedas = 0;
     private int totalPociones = 0;
     private bool juegoTerminado = false;
-    private bool juegoIniciado = false;
-
-    private static bool historiaMostrada = false;
 
     void Awake()
     {
@@ -36,32 +33,14 @@ public class GameManager : MonoBehaviour
         panelVictoria.SetActive(false);
         ActualizarTextos();
 
-        if (historiaMostrada)
-        {
-            juegoIniciado = true;
-            textoHistoria.gameObject.SetActive(false);
-            Time.timeScale = 1f;
-        }
-        else
-        {
-            textoHistoria.gameObject.SetActive(true);
-            Time.timeScale = 0f;
-        }
+        panelInstrucciones.SetActive(true);
+        Time.timeScale = 0f;
     }
 
-    void Update()
+    public void Comenzar()
     {
-        if (!juegoIniciado)
-        {
-            if (Input.anyKeyDown)
-            {
-                juegoIniciado = true;
-                historiaMostrada = true;
-                textoHistoria.gameObject.SetActive(false);
-                Time.timeScale = 1f;
-            }
-            return;
-        }
+        panelInstrucciones.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void SumarMoneda()
