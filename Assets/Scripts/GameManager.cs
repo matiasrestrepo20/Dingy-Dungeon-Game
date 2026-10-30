@@ -8,9 +8,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI textoMonedas;
     public TextMeshProUGUI textoPociones;
     public TextMeshProUGUI textoPuntos;
-    public TextMeshProUGUI textoGameOver;
-    public TextMeshProUGUI textoVictoria;
     public TextMeshProUGUI textoHistoria;
+    public GameObject panelMuerte;
+    public GameObject panelVictoria;
 
     private int monedas = 0;
     private int pociones = 0;
@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour
         totalMonedas = FindObjectsByType<Coin>(FindObjectsSortMode.None).Length;
         totalPociones = FindObjectsByType<Potion>(FindObjectsSortMode.None).Length;
 
-        textoGameOver.gameObject.SetActive(false);
-        textoVictoria.gameObject.SetActive(false);
+        panelMuerte.SetActive(false);
+        panelVictoria.SetActive(false);
         ActualizarTextos();
 
         if (historiaMostrada)
@@ -62,11 +62,6 @@ public class GameManager : MonoBehaviour
             }
             return;
         }
-
-        if (juegoTerminado && Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
     }
 
     public void SumarMoneda()
@@ -91,13 +86,25 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         juegoTerminado = true;
-        textoGameOver.gameObject.SetActive(true);
+        panelMuerte.SetActive(true);
     }
 
     public void Victoria()
     {
         juegoTerminado = true;
-        textoVictoria.gameObject.SetActive(true);
+        panelVictoria.SetActive(true);
+    }
+
+    public void Reiniciar()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void IrAlMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MenuPrincipal");
     }
 
     void ActualizarTextos()
